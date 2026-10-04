@@ -2004,60 +2004,66 @@
     /* Section navigation */
     .section-nav {
       position: fixed;
-      left: max(18px, calc((100vw - var(--site-max-width)) / 2 - 150px));
-      top: 50%;
+      left: max(18px, calc((100vw - var(--site-max-width)) / 2 - 174px));
+      top: 72px;
       z-index: 40;
       display: flex;
       flex-direction: column;
-      gap: 4px;
-      width: 132px;
-      padding: 10px;
-      border: 1px solid rgba(210, 210, 215, .72);
-      border-radius: 16px;
-      background: rgba(255, 255, 255, .84);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, .07);
-      backdrop-filter: saturate(180%) blur(18px);
-      -webkit-backdrop-filter: saturate(180%) blur(18px);
-      transform: translateY(-50%);
+      gap: 2px;
+      width: 156px;
+      padding: 4px 0 4px 18px;
+      border-left: 1px solid #d2d2d7;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(8px);
+      transition: opacity .22s ease, transform .22s ease, visibility .22s ease;
+    }
+
+    .section-nav.is-visible {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
     }
 
     .section-nav-link {
-      display: grid;
-      grid-template-columns: 8px 1fr;
-      align-items: center;
-      gap: 8px;
-      min-height: 34px;
-      padding: 7px 8px;
-      border-radius: 10px;
+      position: relative;
+      display: block;
+      padding: 8px 0;
       color: #6e6e73;
-      font-size: 11px;
-      line-height: 1.18;
+      font-size: 17px;
+      line-height: 1.25;
+      letter-spacing: -.012em;
       font-weight: 600;
       text-decoration: none;
-      transition: background-color .2s ease, color .2s ease;
+      transition: color .18s ease;
     }
 
     .section-nav-link:hover {
       color: #1d1d1f;
-      background: rgba(0, 0, 0, .04);
     }
 
     .section-nav-dot {
+      position: absolute;
+      left: -21px;
+      top: 50%;
       width: 5px;
       height: 5px;
       border-radius: 50%;
-      background: #c7c7cc;
-      transition: transform .2s ease, background-color .2s ease;
+      background: transparent;
+      transform: translateY(-50%);
+      transition: background-color .18s ease, transform .18s ease;
     }
 
     .section-nav-link.is-active {
       color: #1d1d1f;
-      background: rgba(0, 0, 0, .055);
+      font-weight: 700;
     }
 
     .section-nav-link.is-active .section-nav-dot {
       background: #1d1d1f;
-      transform: scale(1.35);
+      transform: translateY(-50%) scale(1.15);
     }
 
     #overview,
@@ -2066,73 +2072,36 @@
     #reflection-log,
     #photo-session-report,
     #study-team {
-      scroll-margin-top: 24px;
+      scroll-margin-top: 32px;
     }
 
-    @media (max-width: 1420px) {
+    @media (max-width: 1460px) {
       .section-nav {
-        left: 14px;
-        width: 44px;
-        padding: 8px 6px;
-        align-items: center;
+        left: 16px;
+        width: 126px;
+        padding-left: 14px;
       }
 
       .section-nav-link {
-        grid-template-columns: 1fr;
-        place-items: center;
-        width: 32px;
-        min-height: 32px;
-        padding: 0;
+        font-size: 15px;
       }
 
-      .section-nav-link span:last-child {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap;
-        border: 0;
+      .section-nav-dot {
+        left: -17px;
       }
     }
 
-    @media (max-width: 760px) {
+    @media (max-width: 1180px) {
       .section-nav {
-        top: auto;
-        left: 50%;
-        bottom: 14px;
-        width: auto;
-        max-width: calc(100vw - 28px);
-        flex-direction: row;
-        gap: 2px;
-        padding: 7px;
-        border-radius: 999px;
-        transform: translateX(-50%);
-      }
-
-      .section-nav-link {
-        width: 32px;
-        min-width: 32px;
-        min-height: 32px;
-      }
-
-      #overview,
-      #questions,
-      #gallery,
-      #reflection-log,
-      #photo-session-report,
-      #study-team {
-        scroll-margin-top: 16px;
+        display: none;
       }
     }
+
   </style>
 </head>
 <body>
   <nav class="section-nav" aria-label="Page sections">
-    <a class="section-nav-link is-active" href="#overview" data-section="overview"><span class="section-nav-dot" aria-hidden="true"></span><span>Overview</span></a>
-    <a class="section-nav-link" href="#questions" data-section="questions"><span class="section-nav-dot" aria-hidden="true"></span><span>Questions</span></a>
+    <a class="section-nav-link is-active" href="#questions" data-section="questions"><span class="section-nav-dot" aria-hidden="true"></span><span>Questions</span></a>
     <a class="section-nav-link" href="#gallery" data-section="gallery"><span class="section-nav-dot" aria-hidden="true"></span><span>Virtual Gallery</span></a>
     <a class="section-nav-link" href="#reflection-log" data-section="reflection-log"><span class="section-nav-dot" aria-hidden="true"></span><span>Reflection Log</span></a>
     <a class="section-nav-link" href="#photo-session-report" data-section="photo-session-report"><span class="section-nav-dot" aria-hidden="true"></span><span>Photo Session Report</span></a>
@@ -3404,6 +3373,20 @@
       setPracticeReportView("messages");
     });
 
+
+    // Show the page index only after the hero has passed.
+    const sectionNav = document.querySelector(".section-nav");
+    const heroSection = document.getElementById("overview");
+
+    const updateSectionNavVisibility = () => {
+      if (!sectionNav || !heroSection) return;
+      const heroBottom = heroSection.getBoundingClientRect().bottom;
+      sectionNav.classList.toggle("is-visible", heroBottom <= 24);
+    };
+
+    updateSectionNavVisibility();
+    window.addEventListener("scroll", updateSectionNavVisibility, { passive: true });
+    window.addEventListener("resize", updateSectionNavVisibility);
 
     // Keep the section navigation in sync with the part of the page in view.
     const sectionNavLinks = Array.from(document.querySelectorAll(".section-nav-link"));
