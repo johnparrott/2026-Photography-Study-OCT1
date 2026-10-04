@@ -2000,11 +2000,147 @@
 
       .footer { padding: 26px 24px; }
     }
+
+    /* Section navigation */
+    .section-nav {
+      position: fixed;
+      left: max(18px, calc((100vw - var(--site-max-width)) / 2 - 150px));
+      top: 50%;
+      z-index: 40;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      width: 132px;
+      padding: 10px;
+      border: 1px solid rgba(210, 210, 215, .72);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, .84);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, .07);
+      backdrop-filter: saturate(180%) blur(18px);
+      -webkit-backdrop-filter: saturate(180%) blur(18px);
+      transform: translateY(-50%);
+    }
+
+    .section-nav-link {
+      display: grid;
+      grid-template-columns: 8px 1fr;
+      align-items: center;
+      gap: 8px;
+      min-height: 34px;
+      padding: 7px 8px;
+      border-radius: 10px;
+      color: #6e6e73;
+      font-size: 11px;
+      line-height: 1.18;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background-color .2s ease, color .2s ease;
+    }
+
+    .section-nav-link:hover {
+      color: #1d1d1f;
+      background: rgba(0, 0, 0, .04);
+    }
+
+    .section-nav-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #c7c7cc;
+      transition: transform .2s ease, background-color .2s ease;
+    }
+
+    .section-nav-link.is-active {
+      color: #1d1d1f;
+      background: rgba(0, 0, 0, .055);
+    }
+
+    .section-nav-link.is-active .section-nav-dot {
+      background: #1d1d1f;
+      transform: scale(1.35);
+    }
+
+    #overview,
+    #questions,
+    #gallery,
+    #reflection-log,
+    #photo-session-report,
+    #study-team {
+      scroll-margin-top: 24px;
+    }
+
+    @media (max-width: 1420px) {
+      .section-nav {
+        left: 14px;
+        width: 44px;
+        padding: 8px 6px;
+        align-items: center;
+      }
+
+      .section-nav-link {
+        grid-template-columns: 1fr;
+        place-items: center;
+        width: 32px;
+        min-height: 32px;
+        padding: 0;
+      }
+
+      .section-nav-link span:last-child {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .section-nav {
+        top: auto;
+        left: 50%;
+        bottom: 14px;
+        width: auto;
+        max-width: calc(100vw - 28px);
+        flex-direction: row;
+        gap: 2px;
+        padding: 7px;
+        border-radius: 999px;
+        transform: translateX(-50%);
+      }
+
+      .section-nav-link {
+        width: 32px;
+        min-width: 32px;
+        min-height: 32px;
+      }
+
+      #overview,
+      #questions,
+      #gallery,
+      #reflection-log,
+      #photo-session-report,
+      #study-team {
+        scroll-margin-top: 16px;
+      }
+    }
   </style>
 </head>
 <body>
+  <nav class="section-nav" aria-label="Page sections">
+    <a class="section-nav-link is-active" href="#overview" data-section="overview"><span class="section-nav-dot" aria-hidden="true"></span><span>Overview</span></a>
+    <a class="section-nav-link" href="#questions" data-section="questions"><span class="section-nav-dot" aria-hidden="true"></span><span>Questions</span></a>
+    <a class="section-nav-link" href="#gallery" data-section="gallery"><span class="section-nav-dot" aria-hidden="true"></span><span>Virtual Gallery</span></a>
+    <a class="section-nav-link" href="#reflection-log" data-section="reflection-log"><span class="section-nav-dot" aria-hidden="true"></span><span>Reflection Log</span></a>
+    <a class="section-nav-link" href="#photo-session-report" data-section="photo-session-report"><span class="section-nav-dot" aria-hidden="true"></span><span>Photo Session Report</span></a>
+    <a class="section-nav-link" href="#study-team" data-section="study-team"><span class="section-nav-dot" aria-hidden="true"></span><span>Study Team</span></a>
+  </nav>
+
   <main class="page">
-    <section class="hero">
+    <section class="hero" id="overview">
       <div class="hero-inner">
         <div class="hero-lockup">
           <p class="hero-eyebrow reveal-on-load reveal-delay-1">2026</p>
@@ -2017,7 +2153,7 @@
     </section>
 
     <div class="content-wrap">
-      <section class="faq-section" aria-labelledby="faqTitle">
+      <section class="faq-section" id="questions" aria-labelledby="faqTitle">
         <h2 class="faq-title reveal-on-scroll" id="faqTitle">Questions?</h2>
         <p class="intro-line reveal-on-scroll reveal-delay-1">Find answers to common questions about participating in the photography experiences study.</p>
         <div class="faq-search-wrap reveal-on-scroll reveal-delay-2">
@@ -2034,7 +2170,7 @@
         <div id="faqRoot"></div>
       </section>
 
-      <section class="gallery-section" aria-labelledby="virtualGalleryTitle">
+      <section class="gallery-section" id="gallery" aria-labelledby="virtualGalleryTitle">
         <div class="gallery-inner">
           <div class="gallery-intro">
             <h2 class="reveal-on-scroll" id="virtualGalleryTitle">Your photos will become a virtual gallery.</h2>
@@ -2098,7 +2234,7 @@
         </div>
       </section>
 
-      <section class="practice-section" aria-labelledby="practiceReflectionTitle">
+      <section class="practice-section" id="reflection-log" aria-labelledby="practiceReflectionTitle">
         <div class="practice-inner">
           <div class="practice-copy">
             <h2 class="practice-title reveal-on-scroll" id="practiceReflectionTitle">Practice Reflection Log</h2>
@@ -2187,7 +2323,7 @@
     </div>
   
 
-      <section class="practice-section practice-section-secondary" aria-labelledby="practiceReportTitle">
+      <section class="practice-section practice-section-secondary" id="photo-session-report" aria-labelledby="practiceReportTitle">
         <div class="practice-inner">
           <div class="practice-demo-wrap reveal-on-scroll reveal-delay-2">
             <div class="practice-demo is-idle" id="practiceReportDemo">
@@ -2203,7 +2339,7 @@
                     <span class="practice-notification-icon" aria-hidden="true">SS</span>
                     <span class="practice-notification-copy">
                       <span class="practice-notification-title">Survey Signal</span>
-                      <span class="practice-notification-text">It’s time to complete your Photo Session Report.</span>
+                      <span class="practice-notification-text">Please fill out this Photo Session Report after today’s photo session.</span>
                     </span>
                     <span class="practice-notification-time">now</span>
                   </button>
@@ -2225,7 +2361,7 @@
                   <div class="practice-message-time">Today · 3:15 PM</div>
                   <div class="practice-message-bubble">
                     <p>
-                      Hi! It’s time to complete your Photo Session Report. Please use the link below when you’re ready.<br><br>
+                      Hi! Please fill out this Photo Session Report after you’ve completed today’s photo session. Use the link below when you’re ready.<br><br>
                       <a class="practice-message-link" id="openPracticeReportSurvey" href="https://cgu.co1.qualtrics.com/jfe/form/SV_3Q7Hvx4xnMzCHYO?Q_DONT_SAVE=1">cgu.co1.qualtrics.com/jfe/form/SV_3Q7Hvx4xnMzCHYO</a>
                     </p>
                   </div>
@@ -2259,7 +2395,7 @@
 
           <div class="practice-copy">
             <h2 class="practice-title reveal-on-scroll" id="practiceReportTitle">Practice Photo Session Report</h2>
-            <p class="practice-description reveal-on-scroll reveal-delay-1">After each photo session, you’ll receive a text inviting you to complete a short Photo Session Report. Try the practice version here: start the simulation, tap the notification, open the link in the message, and move through the report just as you would during the study.</p>
+            <p class="practice-description reveal-on-scroll reveal-delay-1">Each morning during the study, you’ll receive a text with the link to your Photo Session Report. Keep that link for later and fill out the report after you’ve completed that day’s photo session. Try the practice version here: start the simulation, tap the notification, open the link in the message, and move through the report just as you would during the study.</p>
             <p class="practice-note reveal-on-scroll reveal-delay-2">
               <svg class="practice-note-icon" viewBox="0 0 24 24" aria-hidden="true">
                 <circle cx="12" cy="12" r="8.5"></circle>
@@ -2276,7 +2412,7 @@
         </div>
       </section>
 
-      <section class="team-section" aria-labelledby="studyTeamTitle">
+      <section class="team-section" id="study-team" aria-labelledby="studyTeamTitle">
         <div class="team-inner">
           <div class="team-intro">
             <h2 class="team-title reveal-on-scroll" id="studyTeamTitle">Meet the study team.</h2>
@@ -3268,6 +3404,38 @@
       setPracticeReportView("messages");
     });
 
+
+    // Keep the section navigation in sync with the part of the page in view.
+    const sectionNavLinks = Array.from(document.querySelectorAll(".section-nav-link"));
+    const sectionNavTargets = sectionNavLinks
+      .map((link) => document.getElementById(link.dataset.section))
+      .filter(Boolean);
+
+    const setActiveSection = (sectionId) => {
+      sectionNavLinks.forEach((link) => {
+        const isActive = link.dataset.section === sectionId;
+        link.classList.toggle("is-active", isActive);
+        if (isActive) {
+          link.setAttribute("aria-current", "location");
+        } else {
+          link.removeAttribute("aria-current");
+        }
+      });
+    };
+
+    if ("IntersectionObserver" in window && sectionNavTargets.length) {
+      const sectionObserver = new IntersectionObserver((entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible[0]) setActiveSection(visible[0].target.id);
+      }, {
+        rootMargin: "-28% 0px -55% 0px",
+        threshold: [0, .1, .25, .5]
+      });
+
+      sectionNavTargets.forEach((section) => sectionObserver.observe(section));
+    }
   </script>
 </body>
 </html>
